@@ -1,0 +1,18 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>2_Condition</title>
+		<!-- 
+			날짜 : 2023/07/24
+			이름 : 정채윤 
+			내용 : JSP 스크립트릿 조건문 실습하기 
+		 -->
+	</head>
+	<body>
+		<h3>2.조건문</h3>
+		
+		
+	</body>
+</html>

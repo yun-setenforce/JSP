@@ -1,0 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>4-Class</title>
+		<%--
+			날짜 : 2023/07/24
+			이름 : 정채윤
+			내용 : JSP 스크립트릿 클래스 실습하기 
+		--%>
+	</head>
+	<body>
+		<h3>4.클래스</h3>
+		
+	</body>
+</html>
