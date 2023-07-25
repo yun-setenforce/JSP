@@ -9,6 +9,9 @@
 			이름 : 정채윤
 			내용 : JSP application 내장객체 실습하기
 			
+			application
+			 - 현재 웹 애플리케이션을 실행하는 WAS(톰캣)의 환경 객체
+			 - 서버 환경값(Context)를 설정하고 참조, 로그작업 지원 
 		 --%>
 	</head>
 	<body>
