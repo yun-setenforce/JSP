@@ -26,4 +26,20 @@
     <!--
     <Manager pathname="" />
     -->
+    
+    <!-- 커넥션 풀 설정 -->
+    <Resource 
+    	name="jdbc/userdb"
+    	auth="Container"
+    	type="javax.sql.DataSource"
+    	driverClassName="com.mysql.cj.jdbc.Driver"
+    	url="jdbc:mysql://127.0.0.1:3306/userdb"
+    	username="root"
+    	password="1234"
+    	maxTotal="13"
+    	maxIdle="13"
+    	maxWaitMillis="3000"
+    	/>
+    	<!-- /// name :식별값. 아무렇게나 적으셈.  -->
+    
 </Context>
