@@ -41,5 +41,21 @@
     	maxWaitMillis="3000"
     	/>
     	<!-- /// name :식별값. 아무렇게나 적으셈.  -->
+    	
+    	
+    <Resource 
+    	name="jdbc/Jboard"
+    	auth="Container"
+    	type="javax.sql.DataSource"
+    	driverClassName="com.mysql.cj.jdbc.Driver"
+    	url="jdbc:mysql://127.0.0.1:3306/Jboard"
+    	username="root"
+    	password="1234"
+    	maxTotal="13"
+		 maxIdle="30"
+		
+		maxActive="100"
+    	maxWaitMillis="3000"
+    	/>
     
 </Context>
