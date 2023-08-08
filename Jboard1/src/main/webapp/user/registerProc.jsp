@@ -1,4 +1,4 @@
-<%@page import="kr.co.jboad1.vo.UsersVO"%>
+<%@page import="kr.co.jboad1.dto.UsersDTO"%>
 <%@page import="kr.co.jboad1.dao.UserDAO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -13,7 +13,7 @@
 <%@page import="javax.naming.Context"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	//인코딩 설정 
+//인코딩 설정 
 	request.setCharacterEncoding("UTF-8");
 
 	//전송 데이터 수신
@@ -28,7 +28,7 @@
 	String addr2 = request.getParameter("addr2");
 	String regip = request.getRemoteAddr(); //사용자 아이피 주소 
 	
-	UsersVO vo = new UsersVO();
+	UsersDTO vo = new UsersDTO();
 	vo.setUid(uid);
 	vo.setPass(pass);
 	vo.setName(name);
@@ -43,5 +43,4 @@
 	UserDAO.getInstance().insertUser(vo);
 	
 	response.sendRedirect("/Jboard1/user/login.jsp");
-		
 %>

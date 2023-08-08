@@ -8,10 +8,10 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import kr.co.jboad1.vo.TermsVO;
-import kr.co.jboad1.vo.UsersVO;
 import kr.co.jboad1.db.DBHelper;
 import kr.co.jboad1.db.SQL;
+import kr.co.jboad1.dto.TermsDTO;
+import kr.co.jboad1.dto.UsersDTO;
 
 public class UserDAO extends DBHelper{
 	private static UserDAO  instance = new UserDAO();
@@ -22,7 +22,7 @@ public class UserDAO extends DBHelper{
 	
 	private UserDAO() {}
 	
-	public void insertUser(UsersVO vo) {
+	public void insertUser(UsersDTO vo) {
 
 		try{
 			conn = getConnection();
@@ -51,8 +51,8 @@ public class UserDAO extends DBHelper{
 		
 	}
 	
-	public UsersVO selectUser(String uid, String pass) {
-		UsersVO user = new UsersVO();
+	public UsersDTO selectUser(String uid, String pass) {
+		UsersDTO user = new UsersDTO();
 		
 		//사용자 DB조회 
 		try{
@@ -67,7 +67,7 @@ public class UserDAO extends DBHelper{
 			ResultSet rs = psmt.executeQuery();
 			
 			if(rs.next()){
-				user = new UsersVO();
+				user = new UsersDTO();
 				user.setUid(rs.getString(1));
 				user.setPass(rs.getString(2));
 				user.setName(rs.getString(3));
@@ -165,8 +165,8 @@ public class UserDAO extends DBHelper{
 		return result;
 	}
 	
-	public TermsVO selectTerms() {
-		TermsVO vo = new TermsVO();
+	public TermsDTO selectTerms() {
+		TermsDTO vo = new TermsDTO();
 		try{
 			conn = getConnection();
 			

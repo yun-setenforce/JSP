@@ -1,4 +1,4 @@
-<%@page import="kr.co.jboad1.vo.UsersVO"%>
+<%@page import="kr.co.jboad1.dto.UsersDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@  include file="./_header.jsp" %>
        

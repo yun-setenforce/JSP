@@ -1,13 +1,13 @@
-<%@page import="kr.co.jboad1.vo.UsersVO"%>
+<%@page import="kr.co.jboad1.dto.UsersDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	//현재 로그인 사용자 가져오기 
-	UsersVO sessUser = (UsersVO)session.getAttribute("sessUser");
+//현재 로그인 사용자 가져오기 
+	UsersDTO sessUser = (UsersDTO)session.getAttribute("sessUser");
 	if(sessUser == null){
 		response.sendRedirect("/Jboard1/user/login.jsp?success=101");
 		return;
 	}
-	%>
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

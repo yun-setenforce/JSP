@@ -1,59 +1,58 @@
-<%@page import="kr.co.jboad1.vo.ArticleVO"%>
+<%@page import="kr.co.jboad1.dto.ArticleDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.co.jboad1.dao.ArticleDAO"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@  include file="./_header.jsp" %>
       
 <%
-	request.setCharacterEncoding("UTF-8");
-	String pg = request.getParameter("pg");
+      request.setCharacterEncoding("UTF-8");
+      	String pg = request.getParameter("pg");
 
-	//현재 페이지 게시물 Limit 시작번호 
-	// 페이지 관련 변수
-	int start  			= 0;
-	int currentPage 	= 1;
-	int total 			= 0;
-	int lastPageNum 	= 0;     
-	int pageGroupCurrent = 1;
-	int pageGroupStart  = 1;
-	int pageGroupEnd  	= 0;
-	int pageStartNum 	= 0;//각 페이지의 시작 게시물 번호 
-	
-	//현재 페이지 계산 
-	if(pg != null){
-		currentPage = Integer.parseInt(pg);
-	}
+      	//현재 페이지 게시물 Limit 시작번호 
+      	// 페이지 관련 변수
+      	int start  			= 0;
+      	int currentPage 	= 1;
+      	int total 			= 0;
+      	int lastPageNum 	= 0;     
+      	int pageGroupCurrent = 1;
+      	int pageGroupStart  = 1;
+      	int pageGroupEnd  	= 0;
+      	int pageStartNum 	= 0;//각 페이지의 시작 게시물 번호 
+      	
+      	//현재 페이지 계산 
+      	if(pg != null){
+      		currentPage = Integer.parseInt(pg);
+      	}
 
-	//Limit 시작값 계산 
-	start = (currentPage - 1) * 10;
-	
-	//전체 게시물 갯수 조회
-	total = ArticleDAO.getInstance().selectCountTotal();
-	
-	//페이지 번호 계산 
-	if(total % 10 ==0){
-		lastPageNum = (total/10);
-	}else{
-		lastPageNum = (total/10)+1;
-	}
-	
-	// 페이지 그룹 계산 
-	pageGroupCurrent = (int) Math.ceil(currentPage/10.0);
-	pageGroupStart = (pageGroupCurrent-1)*10 +1;
-	pageGroupEnd = pageGroupCurrent*10;
+      	//Limit 시작값 계산 
+      	start = (currentPage - 1) * 10;
+      	
+      	//전체 게시물 갯수 조회
+      	total = ArticleDAO.getInstance().selectCountTotal();
+      	
+      	//페이지 번호 계산 
+      	if(total % 10 ==0){
+      		lastPageNum = (total/10);
+      	}else{
+      		lastPageNum = (total/10)+1;
+      	}
+      	
+      	// 페이지 그룹 계산 
+      	pageGroupCurrent = (int) Math.ceil(currentPage/10.0);
+      	pageGroupStart = (pageGroupCurrent-1)*10 +1;
+      	pageGroupEnd = pageGroupCurrent*10;
 
-	
-	if(pageGroupEnd > lastPageNum){
-		pageGroupEnd = lastPageNum;
-	}
-	
-	//페이지 시작번호계산 
-	pageStartNum = total - start;
-	
-	//현재 페이지 게시물 조회 
-	List<ArticleVO> articles = ArticleDAO.getInstance().selectArticles(start);
-
-%>      
+      	
+      	if(pageGroupEnd > lastPageNum){
+      		pageGroupEnd = lastPageNum;
+      	}
+      	
+      	//페이지 시작번호계산 
+      	pageStartNum = total - start;
+      	
+      	//현재 페이지 게시물 조회 
+      	List<ArticleDTO> articles = ArticleDAO.getInstance().selectArticles(start);
+      %>      
         
 <main>
     <section id="board" class="list">
@@ -68,7 +67,7 @@
                     <th>조회</th>
                 </tr>
                 <%
-                	for(ArticleVO article : articles){
+                for(ArticleDTO article : articles){
                 %>
                 <tr>
                     <td><%=pageStartNum-- %></td>

@@ -1,6 +1,6 @@
-package kr.co.jboad1.vo;
+package kr.co.jboad1.dto;
 
-public class UsersVO {
+public class UsersDTO {
 	
 
 	private String uid;

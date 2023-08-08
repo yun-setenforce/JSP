@@ -1,6 +1,6 @@
 <%@page import="kr.co.jboad1.dao.UserDAO"%>
-<%@page import="kr.co.jboad1.vo.UsersVO"%>
-<%@page import="kr.co.jboad1.vo.TermsVO"%>
+<%@page import="kr.co.jboad1.dto.UsersDTO"%>
+<%@page import="kr.co.jboad1.dto.TermsDTO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -8,14 +8,14 @@
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
-<% 
-	// 전송 데이터 수신 
+<%
+// 전송 데이터 수신 
 	request.setCharacterEncoding("UTF-8");
 
 	String uid 	= request.getParameter("uid");
 	String pass = request.getParameter("pass");
 	// 사용자 DB 조회 
-	UsersVO user = UserDAO.getInstance().selectUser(uid, pass);
+	UsersDTO user = UserDAO.getInstance().selectUser(uid, pass);
 	
 	//회원 여부 확인 
 	if(user!=null){
@@ -28,5 +28,4 @@
 		response.sendRedirect("/Jboard1/user/login.jsp?success=100");
 		
 	}
-
 %>

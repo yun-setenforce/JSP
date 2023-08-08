@@ -1,6 +1,6 @@
 <%@page import="kr.co.jboad1.dao.ArticleDAO"%>
-<%@page import="kr.co.jboad1.vo.ArticleVO"%>
-<%@page import="kr.co.jboad1.vo.UsersVO"%>
+<%@page import="kr.co.jboad1.dto.ArticleDTO"%>
+<%@page import="kr.co.jboad1.dto.UsersDTO"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
@@ -14,7 +14,7 @@
 <%@page import="javax.naming.Context"%>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	//인코딩 설정 
+//인코딩 설정 
 	request.setCharacterEncoding("UTF-8");
 
 	//전송 데이터 수신
@@ -27,7 +27,7 @@
 	
 	
 	//데이터이스 처리 
-	ArticleVO vo = new ArticleVO();
+	ArticleDTO vo = new ArticleDTO();
 	vo.setTitle(title);
 	vo.setContent(content);
 	vo.setWriter(writer);
@@ -37,5 +37,4 @@
 	ArticleDAO.getInstance().insertArticle(vo);
 	
 	response.sendRedirect("/Jboard1/list.jsp");
-		
 %>

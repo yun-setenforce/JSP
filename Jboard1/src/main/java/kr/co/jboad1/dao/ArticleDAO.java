@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.jboad1.db.DBHelper;
-import kr.co.jboad1.vo.ArticleVO;
-import kr.co.jboad1.vo.UsersVO;
 import kr.co.jboad1.db.SQL;
+import kr.co.jboad1.dto.ArticleDTO;
+import kr.co.jboad1.dto.UsersDTO;
 
 public class ArticleDAO extends DBHelper {
 	private static ArticleDAO insatnce = new ArticleDAO();
@@ -17,7 +17,7 @@ public class ArticleDAO extends DBHelper {
 	}
 	private ArticleDAO() {}
 	
-	public void insertArticle(ArticleVO vo) {
+	public void insertArticle(ArticleDTO vo) {
 		try {
 			conn = getConnection();
 			
@@ -37,12 +37,12 @@ public class ArticleDAO extends DBHelper {
 		}
 	}
 	
-	public ArticleVO selectArticle(int no) {
+	public ArticleDTO selectArticle(int no) {
 		return null;
 		
 	}
-	public List<ArticleVO> selectArticles(int start) {
-		List<ArticleVO> articles = new ArrayList<>();
+	public List<ArticleDTO> selectArticles(int start) {
+		List<ArticleDTO> articles = new ArrayList<>();
 
 		try {
 			conn = getConnection();
@@ -52,7 +52,7 @@ public class ArticleDAO extends DBHelper {
 			ResultSet rs = psmt.executeQuery();
 			
 			while(rs.next()) {
-				ArticleVO vo = new ArticleVO();
+				ArticleDTO vo = new ArticleDTO();
 				vo.setNo(rs.getInt(1));
 				vo.setParent(rs.getInt(2));
 				vo.setComment(rs.getInt(3));
@@ -102,7 +102,7 @@ public class ArticleDAO extends DBHelper {
 		return name; 
 	}
 	*/
-	public void updateArticle(ArticleVO vo) {}
+	public void updateArticle(ArticleDTO vo) {}
 	public void deleteArticle(int no) {}
 	
 	// 추가 
