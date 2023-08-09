@@ -1,14 +1,11 @@
 package kr.co.jboad1.dao;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.co.jboad1.db.DBHelper;
 import kr.co.jboad1.db.SQL;
 import kr.co.jboad1.dto.ArticleDTO;
-import kr.co.jboad1.dto.UsersDTO;
 
 public class ArticleDAO extends DBHelper {
 	private static ArticleDAO insatnce = new ArticleDAO();
@@ -37,8 +34,36 @@ public class ArticleDAO extends DBHelper {
 		}
 	}
 	
-	public ArticleDTO selectArticle(int no) {
-		return null;
+	public ArticleDTO selectArticle(String no) {
+		ArticleDTO dto = null;
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_ARTICLE);
+			psmt.setString(1, no);
+			rs = psmt.executeQuery();
+			
+			if(rs.next()) {
+				dto = new ArticleDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setParent(rs.getInt("parent"));
+				dto.setComment(rs.getInt("comment"));
+				dto.setCate(rs.getString("cate"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFile(rs.getShort("file"));
+				dto.setHit(rs.getInt("hit"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setRegip(rs.getString("regip"));
+				dto.setRdate(rs.getString("rdate"));
+				dto.setNick(rs.getString("nick"));
+				
+			}
+		
+			close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 		
 	}
 	public List<ArticleDTO> selectArticles(int start) {
@@ -49,7 +74,7 @@ public class ArticleDAO extends DBHelper {
 
 			psmt = conn.prepareStatement(SQL.SELECT_ARTICLES);
 			psmt.setInt(1,start);
-			ResultSet rs = psmt.executeQuery();
+			rs = psmt.executeQuery();
 			
 			while(rs.next()) {
 				ArticleDTO vo = new ArticleDTO();
@@ -123,6 +148,85 @@ public class ArticleDAO extends DBHelper {
 			e.printStackTrace();
 		}
 		return total;
+	}
+	
+	public List<ArticleDTO> selectComments(String parent) {
+		List<ArticleDTO> comments = new ArrayList<>();
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.SELECT_COMMENTS);
+			psmt.setString(1, parent);
+			
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleDTO dto = new ArticleDTO();
+				dto = new ArticleDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setParent(rs.getInt("parent"));
+				dto.setComment(rs.getInt("comment"));
+				dto.setCate(rs.getString("cate"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setFile(rs.getShort("file"));
+				dto.setHit(rs.getInt("hit"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setRegip(rs.getString("regip"));
+				dto.setRdate(rs.getString("rdate"));
+				dto.setNick(rs.getString("nick"));
+				comments.add(dto);
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comments;
+	}
+	
+	
+	public void insertComment(ArticleDTO dto) {
+		try {
+			conn=getConnection();
+			psmt = conn.prepareStatement(SQL.INSERT_COMMENT);
+			psmt.setInt(1,dto.getParent());
+			psmt.setString(2,dto.getContent());
+			psmt.setString(3, dto.getWriter());
+			psmt.setString(4,dto.getRegip());
+			
+			
+			psmt.executeUpdate();
+			close();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void deleteComment(String no) {
+		try {
+			conn=getConnection();
+			psmt = conn.prepareStatement(SQL.DELETE_COMMENT);
+			psmt.setString(1,no);
+			
+			psmt.executeUpdate();
+			close();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void updateArticleForComment(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE_FOR_COMMENT);
+			psmt.setString(1, no);
+			
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

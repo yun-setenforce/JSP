@@ -71,7 +71,7 @@
                 %>
                 <tr>
                     <td><%=pageStartNum-- %></td>
-                    <td><a href="./view.html"><%=article.getTitle() %></a>&nbsp;[<%=article.getComment() %>]</td>
+                    <td><a href="/Jboard1/view.jsp?no=<%=article.getNo()%>"><%=article.getTitle() %></a>&nbsp;[<%=article.getComment() %>]</td>
                     <td><%=article.getNick()%> <%--  <%=ArticleDAO.getInstance().selectUserNick(article.getWriter()) %> (<%=article.getWriter() %>) --%></td>
                     <td><%=article.getRdate() %></td>
                     <td><%=article.getHit() %></td>

@@ -29,15 +29,39 @@ public class SQL {
 											  + "`writer`=? ,"
 											  + "`regip`=? ,"
 											  + "`rdate`=NOW()";
+
+	public static String INSERT_COMMENT =  "INSERT INTO `Article` SET "
+			  								+ "`parent`=? ,"
+											  + "`content`=? ,"
+											  + "`writer`=? ,"
+											  + "`regip`=? ,"
+											  + "`rdate`=NOW()";
 	//public static final String SELECT_ARTICLES = "SELECT * FROM `article` ORDER BY `rdate` DESC";
 	//public static final String SELECT_USER_NICK = "SELECT nick FROM `User` WHERE `uid`=?"; 
+
+	public static String SELECT_ARTICLE = "SELECT "
+										+ "a.*, b.`nick` "
+										+ "FROM `article` AS a "
+										+ "JOIN `User` AS b ON a.writer=b.uid "
+										+ "WHERE `no`=?";
 	public static final String SELECT_ARTICLES = "SELECT "
 												+ "a.*, b.`nick` "
 												+ "FROM `article` AS a "
 												+ "JOIN `User` AS b ON a.writer=b.uid "
+												+ "WHERE `parent`=0 "
 												+ "ORDER BY a.`no` DESC "
 												+ "LIMIT ?,10";
+	public static final String SELECT_COMMENTS = "SELECT *, b.`nick` FROM `Article` AS a "
+												+"JOIN `User` AS b ON a.writer=b.uid "
+												+"WHERE `parent`=?";
+	public static final String SELECT_COUNT_TOTAL= "SELECT COUNT(*) FROM `Article` WHERE `parent`=0";
 
-	public static final String SELECT_COUNT_TOTAL= "SELECT COUNT(*) FROM `Article`";
+	public static final String UPDATE_ARTICLE_FOR_COMMENT = "UPDATE `Article` SET "
+													+ "`comment` = `comment` + 1 "
+													+ "WHERE `no` = ?";
+
+	public static final String DELETE_COMMENT = "DELETE FROM `Article` WHERE `no`=?";
+
+
 
 	}
