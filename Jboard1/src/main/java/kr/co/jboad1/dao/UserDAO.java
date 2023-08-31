@@ -139,7 +139,7 @@ public class UserDAO extends DBHelper{
 			if(rs.next()){
 				result = rs.getInt(1);
 			}
-			
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -158,7 +158,7 @@ public class UserDAO extends DBHelper{
 			if(rs.next()){
 				result = rs.getInt(1);
 			}
-			
+			close();
 		}catch(Exception e){
 			e.printStackTrace();
 		}

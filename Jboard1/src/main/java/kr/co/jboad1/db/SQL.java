@@ -15,12 +15,12 @@ public class SQL {
 											+ "`regip`=?, "
 											+ "`regDate`=NOW()";
 
-	public static final String SELECT_USER = "SELECT * FROM `user` WHERE `uid`=? AND PASS =SHA2(?,256)";
+	public static final String SELECT_USER 			= "SELECT * FROM `User` WHERE `uid`=? AND PASS =SHA2(?,256)";
 	public static final String SELECT_COUNT_UID 	= "SELECT COUNT(*) FROM `User` WHERE `uid`=?";
 	public static final String SELECT_COUNT_NICK 	= "SELECT COUNT(*) FROM `User` WHERE `nick`=?";
 	public static final String SELECT_COUNT_EMAIL 	= "SELECT COUNT(*) FROM `User` WHERE `email`=?";
 	public static final String SELECT_COUNT_HP	 	= "SELECT COUNT(*) FROM `User` WHERE `hp`=?";
-	public static final String SELECT_TERMS	 	= "SELECT * FROM `terms`";
+	public static final String SELECT_TERMS	 		= "SELECT * FROM `Terms`";
 	
 	//Article
 	public static final String INSERT_ARTICLE = "INSERT INTO `Article` SET "
@@ -39,14 +39,24 @@ public class SQL {
 	//public static final String SELECT_ARTICLES = "SELECT * FROM `article` ORDER BY `rdate` DESC";
 	//public static final String SELECT_USER_NICK = "SELECT nick FROM `User` WHERE `uid`=?"; 
 
-	public static String SELECT_ARTICLE = "SELECT "
+	public static final String UPDATE_COMMENT = "UPDATE `Article` SET `content`=? WHERE `no`=?";
+
+	public static final String DELETE_ARTICLE = "DELETE FROM `Article` WHERE `no`=? OR `parent`=?";
+
+	public static final String SELECT_ARTICLE = "SELECT "
 										+ "a.*, b.`nick` "
-										+ "FROM `article` AS a "
+										+ "FROM `Article` AS a "
 										+ "JOIN `User` AS b ON a.writer=b.uid "
 										+ "WHERE `no`=?";
+
+	public static final String UPDATE_ARTICLE = "UPDATE `Article` SET"
+												+"`title`=?,"
+												+"`content`=?,"
+												+"`regip`=? "
+												+"WHERE `no`=?";
 	public static final String SELECT_ARTICLES = "SELECT "
 												+ "a.*, b.`nick` "
-												+ "FROM `article` AS a "
+												+ "FROM `Article` AS a "
 												+ "JOIN `User` AS b ON a.writer=b.uid "
 												+ "WHERE `parent`=0 "
 												+ "ORDER BY a.`no` DESC "
@@ -56,9 +66,12 @@ public class SQL {
 												+"WHERE `parent`=?";
 	public static final String SELECT_COUNT_TOTAL= "SELECT COUNT(*) FROM `Article` WHERE `parent`=0";
 
-	public static final String UPDATE_ARTICLE_FOR_COMMENT = "UPDATE `Article` SET "
+	public static final String UPDATE_ARTICLE_FOR_COMMENT_PLUS = "UPDATE `Article` SET "
 													+ "`comment` = `comment` + 1 "
 													+ "WHERE `no` = ?";
+	public static final String UPDATE_ARTICLE_FOR_COMMENT_MINUS = "UPDATE `Article` SET "
+			+ "`comment` = `comment` - 1 "
+			+ "WHERE `no` = ?";
 
 	public static final String DELETE_COMMENT = "DELETE FROM `Article` WHERE `no`=?";
 

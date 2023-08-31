@@ -22,8 +22,11 @@ public class ArticleDTO {
 	public int getNo() {
 		return no;
 	}
+	public void setNo(String no) {
+		this.no =Integer.parseInt(no);
+	}
 	public void setNo(int no) {
-		this.no = no;
+		this.no =no;
 	}
 	public int getParent() {
 		return parent;

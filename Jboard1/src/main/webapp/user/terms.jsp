@@ -17,7 +17,6 @@ TermsDTO vo = UserDAO.getInstance().selectTerms();
     <title>Jboard::terms</title>
     <link rel="stylesheet" href="../css/style.css"/>
     <script>
-		console.log('sdfdfsfs');
 		window.onload = function(){
 			const chk1 = document.getElementsByName('chk1')[0];
 			const chk2 = document.getElementsByName('chk2')[0];

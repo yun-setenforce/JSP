@@ -10,13 +10,13 @@
 
       	//현재 페이지 게시물 Limit 시작번호 
       	// 페이지 관련 변수
-      	int start  			= 0;
-      	int currentPage 	= 1;
-      	int total 			= 0;
-      	int lastPageNum 	= 0;     
-      	int pageGroupCurrent = 1;
-      	int pageGroupStart  = 1;
-      	int pageGroupEnd  	= 0;
+      	int start  			= 0; // 각 페이지별 글 10개를 읽어오기 위한 SQL문에서 LIMIT 제시값 
+      	int currentPage 	= 1; //현재 페이지. 파라미터로 제시된 페이지가 없을 경우 기본은 1페이지 
+      	int total 			= 0; // 전체 게시물 갯수 
+      	int lastPageNum 	= 0; // 끝까지 넘겼을 떄 마지막 페이지 번호   
+      	int pageGroupCurrent = 1; //페이지 번호를 10씩 나눴을 때 현재 그룹 몇번째인지. 그룹1(1~10p), 그룹2(11~20p)
+      	int pageGroupStart  = 1; //현재 그룹의 시작 페이지 번호 
+      	int pageGroupEnd  	= 0; //현재 그룹의 끝 페이지 번호  -lastPageNum보다 클 경우 lastPageNum 대입 
       	int pageStartNum 	= 0;//각 페이지의 시작 게시물 번호 
       	
       	//현재 페이지 계산 

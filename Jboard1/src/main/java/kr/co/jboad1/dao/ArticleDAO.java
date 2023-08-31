@@ -127,8 +127,41 @@ public class ArticleDAO extends DBHelper {
 		return name; 
 	}
 	*/
-	public void updateArticle(ArticleDTO vo) {}
-	public void deleteArticle(int no) {}
+	public void updateArticle(ArticleDTO vo) {
+		try {
+			conn = getConnection();
+			
+
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE);
+			psmt.setString(1, vo.getTitle());
+			psmt.setString(2,vo.getContent());
+			psmt.setString(3, vo.getRegip());
+			psmt.setInt(4,vo.getNo());
+			
+			psmt.executeUpdate();
+			
+			close();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void deleteArticle(String no) {
+
+		try {
+			conn=getConnection();
+			psmt = conn.prepareStatement(SQL.DELETE_ARTICLE);
+			psmt.setString(1,no);
+			psmt.setString(2,no);
+			psmt.executeUpdate();
+			close();
+		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	// 추가 
 
@@ -202,6 +235,45 @@ public class ArticleDAO extends DBHelper {
 			e.printStackTrace();
 		}
 	}
+	public void updateArticleForCommentPlus(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE_FOR_COMMENT_PLUS);
+			psmt.setString(1, no);
+			
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateArticleForCommentMinus(String no) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE_FOR_COMMENT_MINUS);
+			psmt.setString(1, no);
+			
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void updateComment(String no, String comment) {
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(SQL.UPDATE_COMMENT);
+			psmt.setString(1, comment);
+			psmt.setString(2, no);
+			
+			psmt.executeUpdate();
+			close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void deleteComment(String no) {
 		try {
 			conn=getConnection();
@@ -214,19 +286,7 @@ public class ArticleDAO extends DBHelper {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-	}
-	public void updateArticleForComment(String no) {
-		try {
-			conn = getConnection();
-			psmt = conn.prepareStatement(SQL.UPDATE_ARTICLE_FOR_COMMENT);
-			psmt.setString(1, no);
-			
-			psmt.executeUpdate();
-			close();
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+
 	}
 	
 }

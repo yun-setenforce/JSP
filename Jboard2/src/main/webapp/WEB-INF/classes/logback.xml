@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="NAME" value="Jboard2"/>
+	<!-- 개발용 -->
+	<property name="debugDIR" value="/logs"/>
+	<!-- 배포용 -->
+	<property name="DIR" value="/home/tomcat/logs"/>
+	
+	<!-- 콘솔 어펜더 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 파일 어펜더 -->
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>${DIR}/${NAME}.log</file>
+		<append>true</append>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 롤링 어펜더 -->
+	<!-- 
+	
+	
+	
+	 -->
+	
+	
+	<root level="debug">
+		<!--  <appender-ref ref="STDOUT" />-->
+		<appender-ref ref="STDOUT" /> <!-- 개발할 땐 콘솔출력  -->
+	</root>
+</configuration>
+	<!-- info레벨 이상인 error는 콘솔(STDOUT)도 하고 FILE출력도 하겠다. -->

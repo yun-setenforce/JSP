@@ -20,7 +20,7 @@
     <div id="container">
 
         <header>
-            <h3>Board System v1.0</h3>
+            <h3><a href="/Jboard1/">Board System v1.0</a></h3>
             <p>
                 <%=sessUser.getNick() %>님 반갑습니다.
                 <a href="/Jboard1/user/logout.jsp " class="logout">[로그아웃]</a>

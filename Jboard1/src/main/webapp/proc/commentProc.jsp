@@ -21,7 +21,7 @@
 	
 	
 	//댓글 카운트 수정 
-	ArticleDAO.getInstance().updateArticleForComment(parent);
+	ArticleDAO.getInstance().updateArticleForCommentPlus(parent);
 	
 	response.sendRedirect("/Jboard1/view.jsp?no="+parent);
 	

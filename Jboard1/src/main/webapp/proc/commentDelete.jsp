@@ -13,6 +13,8 @@ ArticleDAO.getInstance().deleteComment(no);
 
 
 
+//댓글 카운트 수정 
+ArticleDAO.getInstance().updateArticleForCommentMinus(parent);
 response.sendRedirect("/Jboard1/view.jsp?no="+parent);
 
 %>
