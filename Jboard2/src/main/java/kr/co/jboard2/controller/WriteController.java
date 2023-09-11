@@ -41,18 +41,6 @@ public class WriteController extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*
-		// 파일 업로드 경로 구하기
-		ServletContext ctx = req.getServletContext();
-		String path = ctx.getRealPath("/upload");
-		
-		// 최대 업로드 파일 크기
-		int maxSize = 1024 * 1024 * 10; //10MB 
-		
-		// 파일 업로드 및 Multipart 객체 생성   (스트림 처리)
-		MultipartRequest mr = new MultipartRequest(req, path, maxSize, "UTF-8", new DefaultFileRenamePolicy());//request 객체, 파일경로, 파일Max크기, 인코딩(UTF-8), defaultRename
-		
-		*/ // ^^^^컨버팅 작업 ^^^^ //
 
 		String path = aService.getFilePath(req);
 		
@@ -85,43 +73,17 @@ public class WriteController extends HttpServlet {
 
 		// 파일명 수정 및 파일테이블 Insert 
 		if(oName != null) {
-			// vvvv컨버팅 작업vvvv //
-			/*
-			int i = oName.lastIndexOf(".");
-			String ext = oName.substring(i); //확장자 (.포함)
-			
-			String uuid = UUID.randomUUID().toString();
-			String sName = uuid + ext;
-			
-			File f1 = new File(path + "/" + oName); //oName으로 저장된 파일 객체 
-			File f2 = new File(path + "/" + sName); //가상의 파일 객체
-			
-			// 파일명 수정 
-			f1.renameTo(f2); //f2로 파일명 수정
-			*/
 			
 			String sName = aService.renameToFile(req, oName);
-			
-			
+					
 			// 파일 테이블 Insert
 			FileDTO fileDto = new FileDTO();
 			fileDto.setAno(aNo);
 			fileDto.setOriName(oName);
 			fileDto.setNewName(sName);
 			
-			fService.insertFile(fileDto);
-			
-		}
-		/*
-		HttpSession session = req.getSession();
-		UserDTO user = (UserDTO) session.getAttribute("sessUser");
-		String writer = user.getUid();
-		*/
-		
-		
-		resp.sendRedirect("/Jboard2/list.do");
-		
-		
-				
+			fService.insertFile(fileDto);		
+		}		
+		resp.sendRedirect("/Jboard2/list.do");			
 	}
 }

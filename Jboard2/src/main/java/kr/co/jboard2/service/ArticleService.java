@@ -1,13 +1,19 @@
 package kr.co.jboard2.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +24,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import kr.co.jboard2.dao.ArticleDAO;
 import kr.co.jboard2.db.SQL;
 import kr.co.jboard2.dto.ArticleDTO;
+import kr.co.jboard2.dto.FileDTO;
 
 public enum ArticleService {
 	
@@ -34,21 +41,21 @@ public enum ArticleService {
 	public ArticleDTO selectArticle(String no) {
 		return dao.selectArticle(no);
 	}
-	public List<ArticleDTO> selectArticles(int start) {
-		return dao.selectArticles(start);
+	public List<ArticleDTO> selectArticles(int start, String search) {
+		return dao.selectArticles(start, search);
 	}
 	
 	public void UpdateArticle(ArticleDTO dto) {
 		dao.UpdateArticle(dto);
 	}
 	
-	public void deleteArticle(int no) {
+	public void deleteArticle(String no) {
 		dao.deleteArticle(no);
 	}
 	
 
-	public int selectCountTotal() {
-		return dao.selectCountTotal();
+	public int selectCountTotal(String search) {
+		return dao.selectCountTotal(search);
 	}
 	
 	
@@ -106,14 +113,41 @@ public enum ArticleService {
 	}
 	
 	// 파일 다운로드 
-	public void downloadFile() {
+	public void downloadFile(HttpServletRequest req, HttpServletResponse resp, FileDTO fileDto) throws IOException {
+
+		/** 다운로드 처리 로직 **/
+		
+		//resp 파일 다운로드 헤더 수정 
+		resp.setContentType("application/octet-stream"); ///resp = 서버에서 클라이언트로 넘어가는 내장 객체 . /// application파일이다. 
+		resp.setHeader("Content-Disposition", "attachment; filename="+URLEncoder.encode(fileDto.getOriName(), "utf-8")); ////파일에 대한 정보 
+		resp.setHeader("Content-Transfer-Encoding", "binary");
+		resp.setHeader("Pragma", "no-cache");
+		resp.setHeader("Cache-Control", "private");
+		
+		//resp 파일 스트림 작업 
+		String path = getFilePath(req);
+		
+		File file = new File(path+"/"+ fileDto.getNewName());
+		
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file)); /// /upload폴더에서 읽어옴 
+		BufferedOutputStream bos = new BufferedOutputStream(resp.getOutputStream());/// resp객체를 통해 사용자에게 보냄
+		
+		while(true){
+			int data = bis.read();
+			if(data == -1){
+				break;
+			}
+			bos.write(data);
+		}
+		bos.close();
+		bis.close();
 		
 	}
 	
 	/** 코멘트 **/
 
-	public void insertComment(ArticleDTO dto) {
-		dao.insertComment(dto);
+	public int insertComment(ArticleDTO dto) {
+		return dao.insertComment(dto);
 	}
 	// view.do : 게시물별 댓글들 조회 
 	public List<ArticleDTO> selectComments(String parent) {
@@ -130,13 +164,13 @@ public enum ArticleService {
 	}
 	
 	// view.do > 댓글 수정 
-	public void updateComment(String no, String comment) {
-		dao.updateComment(no, comment);
+	public int updateComment(String no, String comment) {
+		return dao.updateComment(no, comment);
 	}
 	
 	// view.do -> 댓글 삭제
-	public void deleteComment(String no) {
-		dao.deleteComment(no);
+	public int deleteComment(String no) {
+		return dao.deleteComment(no);
 	}
 
 	
@@ -192,5 +226,4 @@ public enum ArticleService {
 	public int getStartNum(int currentPage) {
 		return (currentPage - 1) * 10;
 	}
-	
 }

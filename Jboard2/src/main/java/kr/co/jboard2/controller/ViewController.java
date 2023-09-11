@@ -41,6 +41,8 @@ public class ViewController extends HttpServlet{
 		List<ArticleDTO> comments = service.selectComments(no);
 
 		if(sessUser != null) {
+			// VIEW 공유 참조 
+			req.setAttribute("no", no);	
 			req.setAttribute("article", article);	
 			req.setAttribute("comments", comments);
 			

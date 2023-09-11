@@ -13,18 +13,12 @@ public class ArticleDTO {
 	private String regip;
 	private String rdate;
 	
-
+	// 추가필드 
 	private String nick;
-	public String getNick() {
-		return nick;
-	}
-	public void setNick(String nick) {
-		if(nick == null) {
-			this.nick = "(탈퇴한 사용자)";
-		} else {
-			this.nick = nick;
-		}
-	}
+	private FileDTO fileDto;
+	
+
+	
 	
 	public int getNo() {
 		return no;
@@ -100,9 +94,26 @@ public class ArticleDTO {
 		this.regip = regip;
 	}
 	public String getRdate() {
-		return rdate;
+		return rdate.substring(2, 10);
 	}
 	public void setRdate(String rdate) {
 		this.rdate = rdate;
+	}
+	
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		if(nick == null) {
+			this.nick = "(탈퇴한 사용자)";
+		} else {
+			this.nick = nick;
+		}
+	}
+	public FileDTO getFileDto() {
+		return fileDto;
+	}
+	public void setFileDto(FileDTO fileDto) {
+		this.fileDto = fileDto;
 	} 
 }
